@@ -10,4 +10,8 @@ public interface MemberMapper {
 	public void register(MemberDTO dto);
 	
 	public List<MemberDTO> getMembers();
+	
+	public void delete(String id);
+	
+	public void update(MemberDTO dto);
 }

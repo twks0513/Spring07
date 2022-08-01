@@ -14,4 +14,8 @@ public interface MemberService {
 	public void getMembers(Model model);
 	
 	public MemberDTO getMember(HttpServletRequest request);
+	
+	public void delete(HttpServletRequest request);
+	
+	public void update(MemberDTO dto);
 }

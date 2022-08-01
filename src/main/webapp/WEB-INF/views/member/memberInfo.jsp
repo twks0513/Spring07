@@ -11,7 +11,6 @@
 <body>
 <%@include file="/WEB-INF/views/default/header.jsp" %>
 	<div align="center">
-	session : ${sessionScope.loginUser }
 	<h1>회 원 정 보</h1>
 		<table border="1">
 			<tr>

@@ -3,6 +3,7 @@ package com.care.root.member.service;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -13,12 +14,14 @@ import com.care.root.mybatis.member.MemberMapper;
 public class MemberServiceImpl implements MemberService{
 	@Autowired
 	MemberMapper mapper;
-
+	BCryptPasswordEncoder en = new BCryptPasswordEncoder(); //비밀번호 암호화
+	
 	@Override
 	public int user_check(HttpServletRequest request) {
 		MemberDTO dto = mapper.getUser(request.getParameter("id"));
 		if(dto!=null) {
-			if(dto.getPw().equals(request.getParameter("pw")))
+			if(en.matches(request.getParameter("pw"), dto.getPw()) || //암호화 된 비밀번호 비교
+					dto.getPw().equals(request.getParameter("pw")))
 				return 0;
 		}
 		return 1;
@@ -26,7 +29,15 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Override
 	public void register(MemberDTO dto) {
-		mapper.register(dto);		
+		//System.out.println("암호화전 : "+dto.getPw());
+		String seq = en.encode(dto.getPw());
+		//System.out.println("암호화후 : "+seq);
+		dto.setPw(seq);
+		try {
+			mapper.register(dto);				
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -40,6 +51,18 @@ public class MemberServiceImpl implements MemberService{
 		MemberDTO dto = mapper.getUser(request.getParameter("id"));
 		
 		return dto;
+	}
+
+	@Override
+	public void delete(HttpServletRequest request) {
+		mapper.delete(request.getParameter("id"));		
+	}
+
+	@Override
+	public void update(MemberDTO dto) {
+		String seq = en.encode(dto.getPw());
+		dto.setPw(seq);
+		mapper.update(dto);		
 	}
 	
 	

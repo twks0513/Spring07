@@ -36,13 +36,16 @@ public class MemberController{
 			ra.addAttribute("id",request.getParameter("id"));
 			return "redirect:successLogin";
 		}
+		return "/member/loginerror";
+	}
+	@GetMapping("loginerror")
+	public String loginerror() {
 		return "redirect:login";
 	}
 	
 	@GetMapping("successLogin")
 	public String successLogin(HttpSession session,String id) {		
 		session.setAttribute("loginUser", id);
-		System.out.println("session : "+id);
 		return "/member/successLogin";
 	}
 	
@@ -74,5 +77,18 @@ public class MemberController{
 		dto = ms.getMember(request);
 		model.addAttribute("dto",dto);		
 		return "/member/info";
+	}
+	
+	@GetMapping("delete")
+	public String delete(HttpServletRequest request,HttpSession session) {
+		ms.delete(request);
+		session.invalidate();
+		return "/member/delete";
+	}
+	
+	@GetMapping("update")
+	public String update(MemberDTO dto) {
+		ms.update(dto);
+		return "/member/update";
 	}
 }

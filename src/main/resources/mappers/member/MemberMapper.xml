@@ -18,4 +18,12 @@
 	<select id="getMembers" resultMap="member">
 		select * from membership
 	</select>
+	
+	<delete id="delete">
+		delete from membership where id =#{id}
+	</delete>
+	
+	<update id="update">
+		update membership set pw=#{pw}, addr=#{addr} where id=#{id}
+	</update>
 </mapper>

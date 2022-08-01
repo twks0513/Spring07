@@ -60,11 +60,11 @@
 					<li> <a href="${contextPath }/member/index">HOME</a> </li>
 					<c:choose>
 						<c:when test="${sessionScope.loginUser == null }">
-							<li> <a href="${contextPath }/member/login" onclick="needLogin()">회원 정보</a> </li>
+							<li> <a href="${contextPath }/member/login" onclick="needLogin()">MEMBER_SHIP</a> </li>
 							<li> <a href="${contextPath }/member/login">LOGIN</a> </li>
 						</c:when>
 						<c:when test="${sessionScope.loginUser != null}">
-							<li> <a href="${contextPath }/member/memberInfo">회원 정보</a> </li>
+							<li> <a href="${contextPath }/member/memberInfo">MEMBER_SHIP</a> </li>
 							<li> <a href="${contextPath }/member/logout" onclick="logout()">LOGOUT</a> </li>
 						</c:when>
 					</c:choose>
