@@ -41,9 +41,6 @@
 	function logout(){
 		alert('로그아웃 되었습니다')
 	}
-	function needLogin(){
-		alert('로그인 후 이용 가능합니다')
-	}
 </script>
 
 </head>
@@ -58,13 +55,12 @@
 			<nav>
 				<ul>
 					<li> <a href="${contextPath }/member/index">HOME</a> </li>
+					<li> <a href="${contextPath }/member/memberInfo">MEMBER_SHIP</a> </li>
 					<c:choose>
 						<c:when test="${sessionScope.loginUser == null }">
-							<li> <a href="${contextPath }/member/login" onclick="needLogin()">MEMBER_SHIP</a> </li>
 							<li> <a href="${contextPath }/member/login">LOGIN</a> </li>
 						</c:when>
 						<c:when test="${sessionScope.loginUser != null}">
-							<li> <a href="${contextPath }/member/memberInfo">MEMBER_SHIP</a> </li>
 							<li> <a href="${contextPath }/member/logout" onclick="logout()">LOGOUT</a> </li>
 						</c:when>
 					</c:choose>

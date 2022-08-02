@@ -18,4 +18,8 @@ public interface MemberService {
 	public void delete(HttpServletRequest request);
 	
 	public void update(MemberDTO dto);
+	
+	public void keepLogin(String id,String cookieId);
+	
+	public MemberDTO getCookieUser(String cookie);
 }

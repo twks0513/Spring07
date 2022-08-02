@@ -50,23 +50,44 @@ function daumPost(){
 	<%@include file="/WEB-INF/views/default/header.jsp" %>
 	<div align="center">
 		<h1>${dto.id }님의 정보</h1><br>
-		<form action="update?id=${param.id }pw=${param.pw}addr=${param.addr}" method="get" name="updateForm">
-			<table border="1">
-				<tr>
-					<td>아이디</td><td><input type="text" name="id" readonly="readonly" value="${dto.id }"></td>
-				</tr>
-				<tr>
-					<td>비밀번호</td><td><input type="password" name="pw"></td>
-				</tr>
-				<tr>
-					<td colspan="2"><input type="text" name="addr" id="addr1" readonly="readonly" value="${dto.addr.split(',')[0] }" onclick="daumPost()" placeholder="우편번호"><button type="button" onclick="daumPost()">우편번호찾기</button></td>
-				</tr>
-				<tr>
-					<td colspan="2"><input type="text" name="addr" id="addr2" readonly="readonly" value="${dto.addr.split(',')[1] }" placeholder="주 소"><br>
-					<input type="text" name="addr" id="addr3" placeholder="상 세 주 소" style="width: 257px;"></td>
-				</tr>
-			</table>
-		</form>
+		<c:choose>
+			<c:when test="${sessionScope.loginUser == param.id}">
+				<form action="update?id=${param.id }pw=${param.pw}addr=${param.addr}" method="get" name="updateForm">
+					<table border="1">
+						<tr>
+							<td>아이디</td><td><input type="text" name="id" readonly="readonly" value="${dto.id }"></td>
+						</tr>
+						<tr>
+							<td>비밀번호</td><td><input type="password" name="pw"></td>
+						</tr>
+						<tr>
+							<td colspan="2"><input type="text" name="addr" id="addr1" readonly="readonly" value="${dto.addr.split(',')[0] }" onclick="daumPost()" placeholder="우편번호"><button type="button" onclick="daumPost()">우편번호찾기</button></td>
+						</tr>
+						<tr>
+							<td colspan="2"><input type="text" name="addr" id="addr2" readonly="readonly" value="${dto.addr.split(',')[1] }" placeholder="주 소"><br>
+							<input type="text" name="addr" id="addr3" value="${dto.addr.split(',')[2] }" placeholder="상 세 주 소" style="width: 257px;"></td>
+						</tr>
+					</table>			
+				</form>
+			</c:when>
+			<c:otherwise>
+				<table border="1">
+					<tr>
+						<td>아이디</td><td><input type="text" name="id" readonly="readonly" value="${dto.id }"></td>
+					</tr>
+					<tr>
+						<td>비밀번호</td><td><input type="password" readonly="readonly" name="pw"></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="text" name="addr" id="addr1" readonly="readonly" value="${dto.addr.split(',')[0] }" placeholder="우편번호"><button type="button" onclick="daumPost()">우편번호찾기</button></td>
+					</tr>
+					<tr>
+						<td colspan="2"><input type="text" name="addr" id="addr2" readonly="readonly" value="${dto.addr.split(',')[1] }" placeholder="주 소"><br>
+						<input type="text" name="addr" id="addr3" readonly="readonly" value="${dto.addr.split(',')[2] }" placeholder="상 세 주 소" style="width: 257px;"></td>
+					</tr>
+				</table>
+			</c:otherwise>
+		</c:choose>
  		<c:choose>
 			<c:when test="${sessionScope.loginUser == param.id}">
 			<button onclick="location.href='delete?id=${dto.id }'">회원탈퇴</button> <button onclick="updatechk()">정보수정</button>				
@@ -76,6 +97,6 @@ function daumPost(){
 			</c:otherwise>
 		</c:choose> 
 	</div>
-	<%@include file="/WEB-INF/views/default/footer.jsp" %>
+	<%@include file="/WEB-INF/views/default/footer.jsp" %>			
 </body>
 </html>

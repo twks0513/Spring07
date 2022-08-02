@@ -7,6 +7,7 @@
 		<id property="id" column="id" /> <!-- PK(프라이머리키) -->
 		<result property="pw" column="pw"/> <!-- 일반적인 값 -->
 		<result property="addr" column="addr"/> <!-- 일반적인 값 -->
+		<result property="loginCookie" column="login_cookie"/>
 	</resultMap>
 	<insert id="register"><!-- id와 메소드명이 같은 것만 찾아감 -->
 		insert into membership values(#{id},#{pw},#{addr}) <!-- getter가 반드시 필요하다 -->
@@ -26,4 +27,13 @@
 	<update id="update">
 		update membership set pw=#{pw}, addr=#{addr} where id=#{id}
 	</update>
+	
+	<update id="keepLogin">
+		update membership set login_cookie=#{cookieId} where id=#{id}
+	</update>
+	
+	<select id="getCookieUser" resultMap="member">
+		select * from membership where login_cookie=#{cookie}
+	</select>
+
 </mapper>

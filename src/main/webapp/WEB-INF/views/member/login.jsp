@@ -22,7 +22,7 @@
 					<td><input type="text" name="pw" placeholder="비밀번호"></td>
 				</tr>
 				<tr>
-					<td><a href="register">회원가입</a></td>
+					<td><input type="checkbox" name="AutoLogin">자동 로그인 </td><td><a href="register">회원가입</a></td>
 				</tr>
 			</table>
 		</form>

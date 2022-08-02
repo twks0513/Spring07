@@ -23,6 +23,26 @@
 	
 	<context:component-scan base-package="com.care.root" />
 	
+	<!-- 인터셉터 생성빈 -->
+	<beans:bean id="testIn" class="com.care.root.common.TestIntercepter"></beans:bean>
 	
+	<beans:bean id="loginChk" class="com.care.root.common.LoginCheckIn"></beans:bean>
 	
+	<beans:bean id="autoLogin" class="com.care.root.common.AutoLogin"></beans:bean>
+	
+	<interceptors >
+		<interceptor>
+			<mapping path="/member/memberInfo"/>
+			<mapping path="/member/info"/>
+			<beans:ref bean="loginChk"/>
+		</interceptor>
+		<interceptor>
+			<mapping path="/member/index"/>
+			<beans:ref bean="autoLogin"/>
+		</interceptor>
+		<!-- <interceptor>
+			<mapping path="/index"/> 컨트롤러의 어느위치로 이동시킬것인가 
+			<beans:ref bean="testIn"/>
+		</interceptor> -->
+	</interceptors>
 </beans:beans>

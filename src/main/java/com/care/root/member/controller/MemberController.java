@@ -1,14 +1,18 @@
 package com.care.root.member.controller;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.care.root.member.dto.MemberDTO;
@@ -34,6 +38,7 @@ public class MemberController{
 		int result = ms.user_check(request);
 		if(result == 0) {
 			ra.addAttribute("id",request.getParameter("id"));
+			ra.addAttribute("AutoLogin",request.getParameter("AutoLogin"));
 			return "redirect:successLogin";
 		}
 		return "/member/loginerror";
@@ -44,8 +49,19 @@ public class MemberController{
 	}
 	
 	@GetMapping("successLogin")
-	public String successLogin(HttpSession session,String id) {		
+	public String successLogin(HttpServletResponse response,HttpSession session,@RequestParam String id,@RequestParam(required = false) String AutoLogin) {		
 		session.setAttribute("loginUser", id);
+		System.out.println("id : "+id);
+		System.out.println("AutoLogin : "+AutoLogin);
+		if(AutoLogin !=null) {
+			int time = 60*60*24*90; //90일
+			Cookie cookie = new Cookie("loginCookie",id);
+			cookie.setMaxAge(time);
+			cookie.setPath("/");
+			response.addCookie(cookie);
+			
+			ms.keepLogin(id,id);
+			}
 		return "/member/successLogin";
 	}
 	
@@ -61,9 +77,15 @@ public class MemberController{
 	}
 	
 	@GetMapping("logout")
-	public String logout(HttpSession session) {
+	public String logout(HttpSession session,@CookieValue(required = false)Cookie loginCookie,HttpServletResponse response) {
+		if(loginCookie !=null) {
+			loginCookie.setMaxAge(0);
+			loginCookie.setPath("/");
+			response.addCookie(loginCookie);
+			ms.keepLogin((String) session.getAttribute("loginUser"),"nan");
+		}
 		session.invalidate();
-		return "index";
+		return "redirect:index";
 	}
 	
 	@GetMapping("memberInfo")

@@ -1,5 +1,8 @@
 package com.care.root.member.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +66,20 @@ public class MemberServiceImpl implements MemberService{
 		String seq = en.encode(dto.getPw());
 		dto.setPw(seq);
 		mapper.update(dto);		
+	}
+
+	@Override
+	public void keepLogin(String id, String cookieId) {
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("id", id);
+		map.put("cookieId", cookieId);
+		mapper.keepLogin(map);
+		
+	}
+
+	@Override
+	public MemberDTO getCookieUser(String cookie) {
+		return mapper.getCookieUser(cookie);
 	}
 	
 	
