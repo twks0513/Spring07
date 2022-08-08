@@ -18,7 +18,7 @@ public class LoginCheckIn extends HandlerInterceptorAdapter{
 			//response.sendRedirect("login");
 			response.setContentType("text/html; charset=utf-8");
 			PrintWriter out = response.getWriter();
-			out.print("<script>alert('로그인 먼저진행!!!!');	location.href='login';</script>");
+			out.print("<script>alert('로그인 후 이용 가능합니다.');	location.href='/root/member/login';</script>");
 			return false;
 		}
 		return true;

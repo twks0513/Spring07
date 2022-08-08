@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
  */
 @Controller
 public class HomeController {
-	@GetMapping("index")
-	public void index() {
-		System.out.println("++index실행++");
-	}
+	/*
+	 * @GetMapping("index") public void index() { System.out.println("++index실행++");
+	 * }
+	 */
 	
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);

@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
 	function regichk(){
 		if(regiForm.id.value==null||regiForm.id.value==""){
@@ -47,6 +48,7 @@ function daumPost(){
         }
     }).open();
 }
+
 </script>
 	<%@include file="/WEB-INF/views/default/header.jsp" %>
 		<div align="center">

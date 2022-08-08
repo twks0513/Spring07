@@ -56,6 +56,7 @@
 				<ul>
 					<li> <a href="${contextPath }/member/index">HOME</a> </li>
 					<li> <a href="${contextPath }/member/memberInfo">MEMBER_SHIP</a> </li>
+					<li> <a href="${contextPath }/board/boardAllList">BOARD</a></li>
 					<c:choose>
 						<c:when test="${sessionScope.loginUser == null }">
 							<li> <a href="${contextPath }/member/login">LOGIN</a> </li>
