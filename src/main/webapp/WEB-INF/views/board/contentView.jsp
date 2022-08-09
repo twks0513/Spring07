@@ -31,7 +31,7 @@ function deletechk(){
 					<c:if test="${sessionScope.loginUser == dto.id }">
 						<button type="button" onclick="location.href='modifyForm?title=${dto.title}&write_no=${dto.write_no }'">수정하기</button> <button type="button" onclick="deletechk()">삭제하기</button>
 					</c:if>				
-				<button type="button">답글달기</button> <button type="button" onclick="location.href='/root/board/boardAllList'">리스트로 돌아가기</button> </th>
+				<button type="button" onclick="location.href='replyForm?title=${dto.title}&write_no=${dto.write_no }'">답글달기</button> <button type="button" onclick="location.href='/root/board/boardAllList'">리스트로 돌아가기</button> </th>
 			</tr>
 		</table>
 	</div>

@@ -23,38 +23,7 @@ public class BoardServiceImpl implements BoardService{
 	public void boardAllList(Model model){
 		model.addAttribute("list",bm.boardAllList());		
 	}
-	@Override
-	public void fileProcess(MultipartHttpServletRequest mul) {
-		System.out.println("id : "+mul.getParameter("id"));
-		System.out.println("title : "+mul.getParameter("title"));
-		System.out.println("content : "+mul.getParameter("content"));
-		
-		BoardDTO dto = new BoardDTO();
-		dto.setId(mul.getParameter("id"));
-		dto.setTitle(mul.getParameter("title"));
-		dto.setContent(mul.getParameter("content"));
-		
-		System.out.println("dto.content : "+dto.getContent());
-		MultipartFile file = mul.getFile("file");
-		System.out.println(file.getOriginalFilename());
-		if(!file.isEmpty()) { //파일이 있을경우
-			SimpleDateFormat f = new SimpleDateFormat("yyyyMMddHHmmss-");
-			String sysFileName = f.format(new Date());
-			System.out.println(sysFileName);
-			sysFileName += file.getOriginalFilename();
-			dto.setImage_file_name(sysFileName);
-			
-			File savefile = new File(IMAGE_REPO+"/"+sysFileName);
-			try {
-				file.transferTo(savefile);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}else { //파일이 없을경우
-			dto.setImage_file_name("nan");
-		}
-		bm.saveData(dto);
-	}
+	
 	@Override
 	public void getContent(Model model,String title,String write_no) {
 		model.addAttribute("dto",bm.getContent(title));

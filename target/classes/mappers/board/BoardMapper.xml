@@ -12,7 +12,7 @@
 		<result property="image_file_name" column="image_file_name"/>
 		<result property="id" column="id"/>
 	</resultMap>
-	
+	 
 	<select id="boardAllList" resultMap="board">
 		select * from mvc_board order by write_no desc
 	</select>

@@ -1,14 +1,15 @@
 package com.care.root.board.dto;
 
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class BoardDTO {
 	private int write_no,hit;
 	private String title,content,image_file_name,id;
-	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-	private Date savedate;
+	private String savedate;
 	public int getWrite_no() {
 		return write_no;
 	}
@@ -45,11 +46,12 @@ public class BoardDTO {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public Date getSavedate() {
+	public String getSavedate() {
 		return savedate;
 	}
-	public void setSavedate(Date savedate) {
-		this.savedate = savedate;
+	public void setSavedate(Timestamp savedate) {
+		SimpleDateFormat s = new SimpleDateFormat("YYY/MM/dd HH:mm:ss");
+		this.savedate = s.format(savedate);
 	}
 	
 }

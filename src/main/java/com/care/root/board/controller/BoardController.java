@@ -15,12 +15,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.care.root.board.sevice.BoardFileService;
 import com.care.root.board.sevice.BoardService;
 
 @Controller
 @RequestMapping("board")
 public class BoardController {
 	@Autowired BoardService bs;
+	@Autowired BoardFileService bfs;
 	
 	@GetMapping("boardAllList")
 	public String board(Model model) {
@@ -43,7 +45,7 @@ public class BoardController {
 	}
 	@PostMapping("write")
 	public String write(MultipartHttpServletRequest mul) {
-		bs.fileProcess(mul);
+		bfs.fileProcess(mul);
 		return "redirect:writeForm";
 	}
 	

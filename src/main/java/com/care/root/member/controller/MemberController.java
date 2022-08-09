@@ -113,4 +113,6 @@ public class MemberController{
 		ms.update(dto);
 		return "/member/update";
 	}
+	
+	
 }
