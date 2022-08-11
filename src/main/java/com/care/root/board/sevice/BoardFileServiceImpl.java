@@ -84,5 +84,5 @@ public class BoardFileServiceImpl implements BoardFileService {
 		bm.saveData(dto);
 	}
 	
-	
+
 }

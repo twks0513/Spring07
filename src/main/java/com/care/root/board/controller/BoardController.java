@@ -38,7 +38,7 @@ public class BoardController {
 	@GetMapping("download")
 	public void download(String file,HttpServletResponse response) throws Exception {
 		response.addHeader("Content-disposition", "attachment; filename="+file); //파일을 다운로드형식으로 응답
-		File f = new File(bs.IMAGE_REPO+"/"+file); //파일경로를 파일객체로 만듦
+		File f = new File(bfs.IMAGE_REPO+"/"+file); //파일경로를 파일객체로 만듦
 		FileInputStream in = new FileInputStream(f); // InputStream으로 경로에 있는 파일을 읽어옮
 		FileCopyUtils.copy(in, response.getOutputStream()); // OutputStream으로 파일을 출력
 		in.close();

@@ -1,26 +1,43 @@
 package com.care.root.board.dto;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+
 public class BoardRepDTO {
-	private int idgroup;
-	private int step;
-	private int indent;
-	public int getIdgroup() {
-		return idgroup;
+	private String id,title,content;
+	private int write_group;
+	private Timestamp write_date;
+	public String getId() {
+		return id;
 	}
-	public void setIdgroup(int idgroup) {
-		this.idgroup = idgroup;
+	public void setId(String id) {
+		this.id = id;
 	}
-	public int getStep() {
-		return step;
+	public String getTitle() {
+		return title;
 	}
-	public void setStep(int step) {
-		this.step = step;
+	public void setTitle(String title) {
+		this.title = title;
 	}
-	public int getIndent() {
-		return indent;
+	public String getContent() {
+		return content;
 	}
-	public void setIndent(int indent) {
-		this.indent = indent;
+	public void setContent(String content) {
+		this.content = content;
 	}
+	public int getWrite_group() {
+		return write_group;
+	}
+	public void setWrite_group(int write_group) {
+		this.write_group = write_group;
+	}
+	public Timestamp getWrite_date() {
+		return write_date;
+	}
+	public void setWrite_date(Timestamp write_date) {
+		this.write_date = write_date;
+	}
+	
+	
    
 }

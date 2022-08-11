@@ -4,8 +4,11 @@ import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.care.root.board.dto.BoardDTO;
+import com.care.root.board.dto.BoardRepDTO;
 import com.care.root.mybatis.board.BoardMapper;
 
 @Service
@@ -68,7 +72,14 @@ public class BoardServiceImpl implements BoardService{
 		}
 		
 	}
-	
-	
+	@Override
+	public void addReply(Map<String, String> map, String userId) {
+		map.put("userId", userId);
+		bm.addReply(map);
+	}
+	@Override
+	public List<BoardRepDTO> getReplyList(int write_group) {
+		return bm.getReplyList(write_group);
+	}
 
 }

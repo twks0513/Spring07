@@ -37,4 +37,11 @@
 		delete from mvc_board where write_no=#{write_no}
 	</delete>
 	
+	<insert id="addReply">
+		insert into reply(id,title,content,write_group) values(#{userId},#{title},#{content},#{write_no})
+	</insert>
+	
+	<select id="getReplyList" resultType="com.care.root.board.dto.BoardRepDTO">
+		select * from reply where write_group=#{write_group} order by write_date desc
+	</select>
 </mapper>
