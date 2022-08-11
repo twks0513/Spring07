@@ -20,8 +20,8 @@ function slideClick(){
 	$("#modal_wrap").show();
 }
 function slide_hide(){
-	$("#first").val("");
-	$("#modal_wrap").val("");
+	$("#title").val("");
+	$("#content").val("");
 	
 	$("#first").hide();
 	$("#modal_wrap").hide();
