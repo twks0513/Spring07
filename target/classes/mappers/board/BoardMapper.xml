@@ -14,7 +14,12 @@
 	</resultMap>
 	 
 	<select id="boardAllList" resultMap="board">
-		select * from mvc_board order by write_no desc
+		select B.* from(select rownum rn, A.* from
+		(select * from mvc_board order by write_no desc)A)B where rn between #{s} and #{e}
+	</select>
+	
+	<select id="selectBoardCount" resultType="Integer">
+		select count(*) from mvc_board 
 	</select>
 	
 	<insert id="saveData">
@@ -44,4 +49,8 @@
 	<select id="getReplyList" resultType="com.care.root.board.dto.BoardRepDTO">
 		select * from reply where write_group=#{write_group} order by write_date desc
 	</select>
+	
+	<delete id="deleteRep">
+		delete from reply where write_group=#{write_group} and title=#{title}
+	</delete>
 </mapper>

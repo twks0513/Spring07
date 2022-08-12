@@ -11,6 +11,7 @@
 </style>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
+
 function deletechk(){
 	alert('삭제가 완료되었습니다!')
 	location.href='delete?file=${dto.image_file_name}&write_no=${dto.write_no}'
@@ -38,12 +39,28 @@ function rep(){
 		data : JSON.stringify(form),
 		contentType : "application/json;charset=utf-8",
 		success : function(){
-			alert("답글이 달렸습니다");
+			alert("답글이 달렸습니다");			
 			slide_hide();
 			replyData();
 		}
 	})
 }
+
+function deleteRep(){
+	$.ajax({
+		url : "deleteRep?write_no=${dto.write_no}&title="+$("#repTitle").val(), type : "get",
+		contentType: "application/json;charset=utf-8",
+		success : function(){
+			alert("답글이 삭제되었습니다.");
+			location.reload();
+		},
+		error : function(){
+			alert("삭제 실패!");
+			location.reload();
+		}
+	})
+}
+
 function replyData(){
 	$.ajax({
 		//url : "replyData?write_no=${dto.write_no}"
@@ -53,6 +70,7 @@ function replyData(){
 		success : function(rep){
 			let html=""
 			for(i=0;i<rep.length;i++){
+				let loginUser = '${sessionScope.loginUser}'
 				let date = new Date(rep[i].write_date)
 				let wd = date.getFullYear()+"/";
 				wd+=(date.getMonth()+1)+"/";
@@ -60,11 +78,17 @@ function replyData(){
 				wd+=(date.getHours())+":";
 				wd+=(date.getMinutes())+":";
 				wd+=(date.getSeconds());
+
 				
 				html +="<div align='left'><table border='1' id='reptable'><tr><th>아이디</th><td>"+rep[i].id+"</td></tr>"
 				html +="<tr><th>작성일 </th><td>"+wd+"</td></tr>"
 				html +="<tr><th>제목</th><td>"+rep[i].title+"</td></tr>"
-				html +="<tr><th>내용</th><td>"+rep[i].content+"</td></tr></table></div>"				
+				html +="<tr><th>내용</th><td>"+rep[i].content+"</td></tr>"
+				if(loginUser==rep[i].id){					
+					html +="<tr><th colspan='2'><button type='button' title='"+rep[i].title+"' value='"+rep[i].title+"' onclick='deleteRep()''>답글삭제</button></th></tr></table></div>"
+				}
+				//답글삭제 해야함
+								
 			}
 			$("#reply").html(html)
 		}
@@ -82,7 +106,7 @@ replyData()
 </style>
 </head>
 <body>
-	<div id="modal_wrap">
+	<%-- <div id="modal_wrap">
 		<div id="first">
 			<div style="width: 250px; margin: auto; padding-top: 20px;">
 				<form id="frm">
@@ -99,9 +123,10 @@ replyData()
 				</form>
 			</div>
 		</div>
-	</div>
+	</div> --%>
 	<%@include file="/WEB-INF/views/default/header.jsp" %>
 	<div align="center">
+	<form id="frm">
 		<table border="1">
 			<tr>
 				<th>글번호</th> <td>${dto.write_no }</td><th>작성자</th><td>${dto.id }</td>
@@ -110,15 +135,35 @@ replyData()
 				<th>제목</th><th>${dto.title }</th> <th>등록일자</th> <th>${dto.savedate }</th>			
 			</tr>
 			<tr>
-				<th>내용</th><td>${dto.content }</td><th colspan="2"> <c:if test="${dto.image_file_name =='nan'}">등록된 이미지가 없습니다.</c:if> <c:if test="${dto.image_file_name !='nan'}"><img alt="등록된 이미지가 없습니다" src="download?file=${dto.image_file_name }" width="100px" height="100px"></c:if> </th>
+				<th colspan="4">내용</th>
+			</tr>
+			<tr>
+				<td colspan="4" height="100px">${dto.content }</td>
+			</tr>
+			<tr>
+				<th colspan="4"> 
+					<c:if test="${dto.image_file_name =='nan'}">등록된 이미지가 없습니다.</c:if> 
+					<c:if test="${dto.image_file_name !='nan'}">
+						<img alt="등록된 이미지가 없습니다" src="download?file=${dto.image_file_name }" width="100px" height="100px">
+					</c:if> 
+				</th>
 			</tr>
 			<tr>
 				<th colspan="4">
 					<c:if test="${sessionScope.loginUser == dto.id }">
 						<button type="button" onclick="location.href='modifyForm?title=${dto.title}&write_no=${dto.write_no }'">수정하기</button> <button type="button" onclick="deletechk()">삭제하기</button>
-					</c:if>				
-				<button type="button" onclick="slideClick()">답글달기</button> <button type="button" onclick="location.href='/root/board/boardAllList'">리스트로 돌아가기</button> </th>
+					</c:if>	
 			</tr>
+			<tr>
+				<th colspan="4">답글달기</th>
+			</tr>
+			<tr>
+			<td colspan="4">
+			<input type="hidden" name="write_no" value="${dto.write_no }">
+			<b>제목</b><br><input type="text" id="title" name="title" size="57" ><br><b>답글</b><br><textarea rows="3" cols="55" name="content" id="content"></textarea><br>
+					<button type="button" onclick="rep()">답글달기</button> <button type="button" onclick="location.href='/root/board/boardAllList'">리스트로 돌아가기</button>
+				</td>					
+			</tr>						
 			<tr>
 				<th colspan="4">답글 목록</th>
 			</tr>
@@ -128,6 +173,7 @@ replyData()
 				</td>
 			</tr>
 		</table>
+	</form>
 	</div>
 	<%@include file="/WEB-INF/views/default/footer.jsp" %>
 	

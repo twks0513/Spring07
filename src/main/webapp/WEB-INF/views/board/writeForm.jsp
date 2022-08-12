@@ -54,7 +54,7 @@
 					<th colspan="2">이미지파일 첨부</th>
 				</tr>
 				<tr>
-					<th colspan="2"><input type="file" id="file" name="file" onchange="readURL(this)"><img id="preview" alt="선택된 이미지가 없습니다." src="download?file=${dto.imgName }" width="100px" height="100px"></th>
+					<th colspan="2"><input type="file" id="file" name="file" onchange="readURL(this)"><img id="preview" alt="선택된 이미지가 없습니다." src="" width="100px" height="100px"></th>
 				</tr>
 				<tr>
 					<th colspan="2"><button type="button" onclick="write_chk()">글쓰기</button> <button type="button" onclick="location.href='/root/board/boardAllList'">목록보기</button></th>

@@ -1,9 +1,7 @@
 package com.care.root.board.controller;
-
 import java.io.File;
 import java.io.FileInputStream;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +11,11 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.care.root.board.sevice.BoardFileService;
-import com.care.root.board.sevice.BoardService;
+import com.care.root.board.service.BoardFileService;
+import com.care.root.board.service.BoardService;
 
 @Controller
 @RequestMapping("board")
@@ -25,8 +24,8 @@ public class BoardController {
 	@Autowired BoardFileService bfs;
 	
 	@GetMapping("boardAllList")
-	public String board(Model model) {
-		bs.boardAllList(model);
+	public String board(Model model, @RequestParam(value = "num",required = false, defaultValue = "1") int num ) {
+		bs.boardAllList(model,num);
 		return "board/boardAllList";
 	}
 	

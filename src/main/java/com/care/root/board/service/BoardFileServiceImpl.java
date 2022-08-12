@@ -1,4 +1,4 @@
-package com.care.root.board.sevice;
+package com.care.root.board.service;
 
 import java.io.File;
 import java.text.SimpleDateFormat;

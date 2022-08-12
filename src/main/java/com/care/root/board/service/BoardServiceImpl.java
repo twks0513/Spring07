@@ -1,19 +1,15 @@
-package com.care.root.board.sevice;
+package com.care.root.board.service;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -24,8 +20,23 @@ import com.care.root.mybatis.board.BoardMapper;
 @Service
 public class BoardServiceImpl implements BoardService{	
 	@Autowired BoardMapper bm;
-	public void boardAllList(Model model){
-		model.addAttribute("list",bm.boardAllList());		
+	public void boardAllList(Model model,int num){
+		System.out.println("boardAllList실행");
+		
+		int pageLetter =3;
+		int allCount = bm.selectBoardCount();
+		
+		int repeat = allCount / pageLetter;
+		if(allCount%pageLetter !=0) {
+			repeat+=1;
+		}
+		
+		int end = num*pageLetter;
+		int start = end+1-pageLetter;
+		
+		model.addAttribute("repeat",repeat);
+		
+		model.addAttribute("list",bm.boardAllList(start,end));		
 	}
 	
 	@Override
@@ -81,5 +92,12 @@ public class BoardServiceImpl implements BoardService{
 	public List<BoardRepDTO> getReplyList(int write_group) {
 		return bm.getReplyList(write_group);
 	}
+
+	@Override
+	public void deleteRep(String write_no,String title) {
+		bm.deleteRep(write_no,title);
+	}
+	
+	
 
 }
