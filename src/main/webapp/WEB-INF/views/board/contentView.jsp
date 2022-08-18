@@ -1,3 +1,4 @@
+<%@page import="com.care.root.board.dto.BoardRepDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -11,7 +12,6 @@
 </style>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
-
 function deletechk(){
 	alert('삭제가 완료되었습니다!')
 	location.href='delete?file=${dto.image_file_name}&write_no=${dto.write_no}'
@@ -46,9 +46,10 @@ function rep(){
 	})
 }
 
-function deleteRep(){
+function deleteRep(replynum){
+	console.log(replynum);
 	$.ajax({
-		url : "deleteRep?write_no=${dto.write_no}&title="+$("#repTitle").val(), type : "get",
+		url : "deleteRep?write_group=${dto.write_no}&replynum="+replynum, type : "get",
 		contentType: "application/json;charset=utf-8",
 		success : function(){
 			alert("답글이 삭제되었습니다.");
@@ -70,6 +71,7 @@ function replyData(){
 		success : function(rep){
 			let html=""
 			for(i=0;i<rep.length;i++){
+				
 				let loginUser = '${sessionScope.loginUser}'
 				let date = new Date(rep[i].write_date)
 				let wd = date.getFullYear()+"/";
@@ -80,15 +82,13 @@ function replyData(){
 				wd+=(date.getSeconds());
 
 				
-				html +="<div align='left'><table border='1' id='reptable'><tr><th>아이디</th><td>"+rep[i].id+"</td></tr>"
-				html +="<tr><th>작성일 </th><td>"+wd+"</td></tr>"
-				html +="<tr><th>제목</th><td>"+rep[i].title+"</td></tr>"
+				html +="<div align='left'><table border='1' id='reptable'><tr><th>아이디</th><th>"+rep[i].id+"</th></tr>"
+				html +="<tr><th>작성일 </th><th>"+wd+"</th></tr>"
+				html +="<tr><th>제목</th><th>"+rep[i].title+"</th></tr>"
 				html +="<tr><th>내용</th><td>"+rep[i].content+"</td></tr>"
 				if(loginUser==rep[i].id){					
-					html +="<tr><th colspan='2'><button type='button' title='"+rep[i].title+"' value='"+rep[i].title+"' onclick='deleteRep()''>답글삭제</button></th></tr></table></div>"
-				}
-				//답글삭제 해야함
-								
+					html +="<tr><th colspan='2'><button type='button' title='"+rep[i].title+"' value='"+rep[i].title+"' onclick='deleteRep("+rep[i].replynum+")''>답글삭제</button></th></tr></table></div>"
+				}								
 			}
 			$("#reply").html(html)
 		}

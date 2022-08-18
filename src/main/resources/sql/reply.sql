@@ -4,6 +4,9 @@ title varchar(50),
 content varchar(300),
 write_group number(10),
 write_date date default sysdate,
+replynum number(4) primary key,
 constraint fk_test1 foreign key(write_group) references mvc_board(write_no) on delete cascade,
 constraint fk_test2 foreign key(id) references membership(id) on delete cascade
 );
+
+create sequence reply_seq;

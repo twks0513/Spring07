@@ -43,7 +43,7 @@
 	</delete>
 	
 	<insert id="addReply">
-		insert into reply(id,title,content,write_group) values(#{userId},#{title},#{content},#{write_no})
+		insert into reply(id,title,content,write_group,replynum) values(#{userId},#{title},#{content},#{write_no},reply_seq.nextval)
 	</insert>
 	
 	<select id="getReplyList" resultType="com.care.root.board.dto.BoardRepDTO">
@@ -51,6 +51,6 @@
 	</select>
 	
 	<delete id="deleteRep">
-		delete from reply where write_group=#{write_group} and title=#{title}
+		delete from reply where write_group=#{w} and replynum=#{r}
 	</delete>
 </mapper>

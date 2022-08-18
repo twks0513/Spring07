@@ -10,7 +10,7 @@
 		<result property="loginCookie" column="login_cookie"/>
 	</resultMap>
 	<insert id="register"><!-- id와 메소드명이 같은 것만 찾아감 -->
-		insert into membership values(#{id},#{pw},#{addr}) <!-- getter가 반드시 필요하다 -->
+		insert into membership(id,pw,addr) values(#{id},#{pw},#{addr}) <!-- getter가 반드시 필요하다 -->
 	</insert>
 	<select id="getUser" resultMap="member">
 		select * from membership where id = #{id}

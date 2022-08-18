@@ -86,6 +86,7 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public void addReply(Map<String, String> map, String userId) {
 		map.put("userId", userId);
+		System.out.println(map);
 		bm.addReply(map);
 	}
 	@Override
@@ -94,8 +95,8 @@ public class BoardServiceImpl implements BoardService{
 	}
 
 	@Override
-	public void deleteRep(String write_no,String title) {
-		bm.deleteRep(write_no,title);
+	public void deleteRep(String write_group,String replynum) {
+		bm.deleteRep(write_group,replynum);
 	}
 	
 	

@@ -7,8 +7,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
+<!-- <script type="text/javascript">
+       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
 
       function drawChart() {
@@ -30,7 +30,7 @@
 
         chart.draw(data, options);
       }
-    </script>
+</script> -->
 </head>
 <body>
 	<%@include file="/WEB-INF/views/default/header.jsp" %>

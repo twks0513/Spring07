@@ -17,5 +17,5 @@ public interface BoardService {
 	public void delete(String file,String write_no);
 	public void addReply(Map<String,String>map,String userId);
 	public List<BoardRepDTO> getReplyList(int write_group);
-	public void deleteRep(String write_no,String title);
+	public void deleteRep(String write_group,String replynum);
 }

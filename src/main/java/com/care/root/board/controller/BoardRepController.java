@@ -32,7 +32,7 @@ public class BoardRepController {
 	}
 	@ResponseBody
 	@GetMapping(value = "deleteRep", produces = "application/json;charset=utf-8")
-	public void deleteRep(@RequestParam("write_no") String write_no,@RequestParam("title") String title) {
-		bs.deleteRep(write_no,title);
+	public void deleteRep(@RequestParam("write_group") String write_group,String replynum) {
+		bs.deleteRep(write_group,replynum);
 	}
 }

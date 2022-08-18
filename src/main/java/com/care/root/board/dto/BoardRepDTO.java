@@ -5,8 +5,15 @@ import java.text.SimpleDateFormat;
 
 public class BoardRepDTO {
 	private String id,title,content;
-	private int write_group;
+	private int write_group,replynum;
 	private Timestamp write_date;
+	
+	public int getReplynum() {
+		return replynum;
+	}
+	public void setReplynum(int replynum) {
+		this.replynum = replynum;
+	}
 	public String getId() {
 		return id;
 	}

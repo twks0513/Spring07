@@ -1,15 +1,14 @@
 package com.care.root.board.dto;
 
-import java.sql.Date;
+
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 public class BoardDTO {
 	private int write_no,hit;
 	private String title,content,image_file_name,id;
 	private String savedate;
+
 	public int getWrite_no() {
 		return write_no;
 	}

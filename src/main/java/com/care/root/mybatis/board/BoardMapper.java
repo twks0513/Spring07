@@ -18,5 +18,5 @@ public interface BoardMapper {
 	public int delete(String write_no);
 	public void addReply(Map<String,String>map);
 	public List<BoardRepDTO> getReplyList(int write_group);
-	public void deleteRep(String write_no,String title);
+	public void deleteRep(@Param("w") String write_group,@Param("r") String replynum);
 }
